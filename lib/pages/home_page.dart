@@ -1,6 +1,7 @@
 import 'package:course_new/forms/customerForm.dart';
 import 'package:course_new/forms/invoiceForm.dart';
 import 'package:course_new/forms/medicineForm.dart';
+import 'package:course_new/forms/receiptForm.dart';
 import 'package:course_new/forms/supplierForm.dart';
 import 'package:course_new/models/customer.dart';
 import 'package:course_new/models/invoice.dart';
@@ -117,7 +118,9 @@ class _HomePageState extends State<HomePage> {
           const MedicineForm(),
           // Форма для ввода инвойса
           const InvoiceForm(),
-          // Форма для добавления производителя 
+          // Форма для ввода производителя 
+          const ReceiptForm(),
+          // Форма для ввода счет-фактуры 
           const SupplierForm(),
           // Страница заявок
           const ShowApplicationsPage(),
@@ -139,7 +142,11 @@ class _HomePageState extends State<HomePage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.receipt),
-            label: 'Инвойсы',
+            label: 'Счёт-фактура',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add_circle_outline),
+            label: 'Приходные накладные',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_box),

@@ -24,8 +24,7 @@ class _ReceiptFormState extends State<ReceiptForm> {
       medicineList: medicineList, // Теперь это список
     );
 
-    // Вывод данных в консоль
-    print(receipt.toJson());
+    Receipt.saveToJson(receipt);
   }
 
   @override

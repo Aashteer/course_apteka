@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/services.dart';
 
 class Supplier {
@@ -44,5 +45,32 @@ class Supplier {
     final String response = await rootBundle.loadString(path);
     final List<dynamic> data = json.decode(response);
     return data.map((json) => Supplier.fromJson(json)).toList();
+  }
+
+  static Future<void> saveToJson(Supplier supplier) async {
+    // Получаем путь к директории приложения
+    
+    final filePath = 'assets/supplier.json';
+
+ 
+    List<Supplier> suppliers = [];
+    try {
+      final file = File(filePath);
+      if (await file.exists()) {
+        final String contents = await file.readAsString();
+        final List<dynamic> jsonData = json.decode(contents);
+        suppliers = jsonData.map((json) => Supplier.fromJson(json)).toList();
+      }
+    } catch (e) {
+      print('Error reading file: $e');
+    }
+
+    // Добавляем нового клиента в список
+    suppliers.add(supplier);
+
+    // Сохраняем обновленный список в файл
+    final String jsonString = json.encode(suppliers.map((c) => c.toJson()).toList());
+    final file = File(filePath);
+    await file.writeAsString(jsonString);
   }
 }

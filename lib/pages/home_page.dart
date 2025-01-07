@@ -1,14 +1,14 @@
 import 'package:course_new/forms/customerForm.dart';
 import 'package:course_new/forms/invoiceForm.dart';
 import 'package:course_new/forms/medicineForm.dart';
+import 'package:course_new/forms/supplierForm.dart';
 import 'package:course_new/models/customer.dart';
 import 'package:course_new/models/invoice.dart';
 import 'package:course_new/models/medicine.dart';
 import 'package:course_new/models/receipt.dart';
 import 'package:course_new/models/supplier.dart';
 import 'package:course_new/pages/ShowApplicationsPage.dart';
-import 'package:course_new/pages/SupplierDetailPage.dart';
-import 'package:course_new/pages/application_page.dart';
+import 'package:course_new/pages/medicine_detail_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -29,11 +29,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    futureSuppliers = Supplier.parseSuppliers("assets/supplier.json");
+    futureMedicines = Medicine.parseMedicines("assets/medicine.json"); // Изменено
     futureReceipts = Receipt.parseReceipts("assets/receipt.json");
-    futureMedicines = Medicine.parseMedicines("assets/medicine.json");
-    futureInvoices = Invoice.parseInvoices("assets/invoice.json");
-    futureCustomers = Customer.parseCustomers("assets/customer.json");
   }
 
   void _onItemTapped(int index) {
@@ -46,24 +43,24 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Suppliers'),
+        title: const Text('Medicines'), // Изменено
       ),
       body: IndexedStack(
         index: _selectedIndex,
         children: [
-          // Основной экран с поставщиками и чеками
-          FutureBuilder<List<Supplier>>(
-            future: futureSuppliers,
+          // Основной экран с лекарствами и чеками
+          FutureBuilder<List<Medicine>>(
+            future: futureMedicines,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
                 return Center(child: Text('Error: ${snapshot.error}'));
               } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                return const Center(child: Text('No suppliers found.'));
+                return const Center(child: Text('No medicines found.'));
               }
 
-              final suppliers = snapshot.data!;
+              final medicines = snapshot.data!;
 
               return FutureBuilder<List<Receipt>>(
                 future: futureReceipts,
@@ -79,32 +76,29 @@ class _HomePageState extends State<HomePage> {
                   final receipts = receiptSnapshot.data!;
 
                   return ListView.builder(
-                    itemCount: suppliers.length,
+                    itemCount: medicines.length,
                     itemBuilder: (context, index) {
-                      final supplier = suppliers[index];
+                      final medicine = medicines[index];
 
                       return Card(
                         margin: const EdgeInsets.all(8.0),
                         child: ListTile(
-                          title: Text(supplier.name),
+                          title: Text(medicine.name),
                           subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Address: ${supplier.address}'),
-                              Text('Phone: ${supplier.phoneNumber}'),
-                              Text('Bank: ${supplier.bank}'),
-                              Text('Account Number: ${supplier.accountNumber}'),
-                              Text('INN: ${supplier.inn}'),
+                              Text('Name: ${medicine.name}'),
+                              Text('Category: ${medicine.category}'),
+                              Text('Packaging type: ${medicine.packagingType}'),
+                              // Добавьте другие поля, если необходимо
                             ],
                           ),
                           onTap: () {
-                            // Переход на страницу деталей поставщика
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => SupplierDetailPage(
-                                  supplier: supplier,
-                                  receipts: receipts,
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => MedicineDetailPage(
+                                    medicine: medicine,
                                 ),
                               ),
                             );
@@ -123,6 +117,8 @@ class _HomePageState extends State<HomePage> {
           const MedicineForm(),
           // Форма для ввода инвойса
           const InvoiceForm(),
+          // Форма для добавления производителя 
+          const SupplierForm(),
           // Страница заявок
           const ShowApplicationsPage(),
         ],
@@ -146,6 +142,10 @@ class _HomePageState extends State<HomePage> {
             label: 'Инвойсы',
           ),
           BottomNavigationBarItem(
+            icon: Icon(Icons.account_box),
+            label: 'Поставщик',
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.list),
             label: 'Заявки',
           ),
@@ -158,4 +158,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-

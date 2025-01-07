@@ -22,9 +22,8 @@ class _CustomerFormState extends State<CustomerForm> {
       phoneNumber: _phoneNumberController.text,
       inn: _innController.text,
     );
-
-    // Например, вы можете вывести данные в консоль или сохранить их в базе данных
-    print(customer.toJson());
+    Customer.saveToJson(customer);
+   
   }
 
   @override

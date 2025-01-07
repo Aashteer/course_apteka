@@ -28,9 +28,8 @@ class _MedicineFormState extends State<MedicineForm> {
       manufacturer: _manufacturerController.text,
       packagingType: _packagingTypeController.text,
     );
-
-    // Вывод данных в консоль
-    print(medicine.toJson());
+    Medicine.saveToJson(medicine);
+    
   }
 
   @override

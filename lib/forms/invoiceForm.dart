@@ -24,10 +24,7 @@ class _InvoiceFormState extends State<InvoiceForm> {
       price: double.tryParse(_priceController.text) ?? 0.0, // Преобразование строки в double
       surname: _surnameController.text,
     );
-
-    // Вывод данных в консоль
-    print(invoice.toJson());
-    // Здесь можно добавить логику для сохранения данных, например, в файл или базу данных
+    Invoice.saveToJson(invoice);
   }
 
   @override

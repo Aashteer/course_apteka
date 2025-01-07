@@ -27,8 +27,8 @@ class _SupplierFormState extends State<SupplierForm> {
       inn: _innController.text,
     );
 
-    // Например, вы можете вывести данные в консоль или сохранить их в базе данных
-    print(supplier.toJson());
+    Supplier.saveToJson(supplier);
+    
   }
   @override
   Widget build(BuildContext context) {
@@ -38,11 +38,11 @@ class _SupplierFormState extends State<SupplierForm> {
         children: [
           TextField(
             controller: _nameController,
-            decoration: InputDecoration(labelText: 'Имя клиента'),
+            decoration: InputDecoration(labelText: 'Поставщик'),
           ),
           TextField(
             controller: _addressController,
-            decoration: InputDecoration(labelText: 'Адрес клиента'),
+            decoration: InputDecoration(labelText: 'Адрес поставщика'),
           ),
           TextField(
             controller: _phoneNumberController,

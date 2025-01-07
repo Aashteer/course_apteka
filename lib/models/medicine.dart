@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/services.dart';
 
 class Medicine {
@@ -49,4 +50,31 @@ class Medicine {
     final List<dynamic> data = json.decode(response);
     return data.map((json) => Medicine.fromJson(json)).toList();
 }
+
+static Future<void> saveToJson(Medicine medicine) async {
+    // Получаем путь к директории приложения
+    
+    final filePath = 'assets/medicine.json';
+
+ 
+    List<Medicine> medicines = [];
+    try {
+      final file = File(filePath);
+      if (await file.exists()) {
+        final String contents = await file.readAsString();
+        final List<dynamic> jsonData = json.decode(contents);
+        medicines = jsonData.map((json) => Medicine.fromJson(json)).toList();
+      }
+    } catch (e) {
+      print('Error reading file: $e');
+    }
+
+    // Добавляем нового клиента в список
+    medicines.add(medicine);
+
+    // Сохраняем обновленный список в файл
+    final String jsonString = json.encode(medicines.map((c) => c.toJson()).toList());
+    final file = File(filePath);
+    await file.writeAsString(jsonString);
+  }
 }

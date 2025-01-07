@@ -1,35 +1,32 @@
-import 'package:course_new/models/supplier.dart';
+import 'package:course_new/models/customer.dart';
 import 'package:flutter/material.dart';
 
-class SupplierForm extends StatefulWidget {
-  const SupplierForm({Key? key}) : super(key: key);
+class CustomerForm extends StatefulWidget {
+  const CustomerForm({Key? key}) : super(key: key);
 
   @override
-  _SupplierFormState createState() => _SupplierFormState();
+  _CustomerFormState createState() => _CustomerFormState();
 }
 
-class _SupplierFormState extends State<SupplierForm> {
+class _CustomerFormState extends State<CustomerForm> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
-  final TextEditingController _bankController = TextEditingController();
-  final TextEditingController _accountNumberController = TextEditingController();
   final TextEditingController _innController = TextEditingController();
 
-  void _saveSupplier() {
+  void _saveCustomer() {
     // Здесь можно добавить логику сохранения данных
-    final supplier = Supplier(
+    final customer = Customer(
       name: _nameController.text,
       address: _addressController.text,
       phoneNumber: _phoneNumberController.text,
-      bank: _bankController.text,
-      accountNumber: _accountNumberController.text,
       inn: _innController.text,
     );
 
     // Например, вы можете вывести данные в консоль или сохранить их в базе данных
-    print(supplier.toJson());
+    print(customer.toJson());
   }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -49,19 +46,11 @@ class _SupplierFormState extends State<SupplierForm> {
             decoration: InputDecoration(labelText: 'Номер телефона'),
           ),
           TextField(
-            controller: _bankController,
-            decoration: InputDecoration(labelText: 'Банк'),
-          ),
-          TextField(
-            controller: _accountNumberController,
-            decoration: InputDecoration(labelText: 'Номер счёта'),
-          ),
-          TextField(
             controller: _innController,
             decoration: InputDecoration(labelText: 'ИНН'),
           ),
           ElevatedButton(
-            onPressed: _saveSupplier,
+            onPressed: _saveCustomer,
             child: const Text('Сохранить'),
           ),
         ],

@@ -73,4 +73,12 @@ class Supplier {
     final file = File(filePath);
     await file.writeAsString(jsonString);
   }
+
+  static Future<Supplier> findByValue(String name) async {
+    List<Supplier> suppliers = await parseSuppliers("assets/supplier.json");
+    return suppliers.firstWhere(
+      (supplier) => supplier.name == name,
+      
+    );
+  }
 }

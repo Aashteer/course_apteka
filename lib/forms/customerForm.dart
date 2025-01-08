@@ -13,6 +13,7 @@ class _CustomerFormState extends State<CustomerForm> {
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _innController = TextEditingController();
+  final TextEditingController _IDController = TextEditingController();
 
   void _saveCustomer() {
     // Здесь можно добавить логику сохранения данных
@@ -21,6 +22,7 @@ class _CustomerFormState extends State<CustomerForm> {
       address: _addressController.text,
       phoneNumber: _phoneNumberController.text,
       inn: _innController.text,
+      ID: _IDController.text
     );
     Customer.saveToJson(customer);
    
@@ -47,6 +49,10 @@ class _CustomerFormState extends State<CustomerForm> {
           TextField(
             controller: _innController,
             decoration: InputDecoration(labelText: 'ИНН'),
+          ),
+          TextField(
+            controller: _IDController,
+            decoration: InputDecoration(labelText: 'ID'),
           ),
           ElevatedButton(
             onPressed: _saveCustomer,

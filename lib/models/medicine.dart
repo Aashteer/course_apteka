@@ -10,6 +10,8 @@ class Medicine {
   final String registrationNumber;
   final String manufacturer;
   final String packagingType;
+  final String supplier;
+  final String receipt;
 
   Medicine({
     required this.name, 
@@ -19,6 +21,8 @@ class Medicine {
     required this.registrationNumber, 
     required this.manufacturer, 
     required this.packagingType,
+    required this.supplier,
+    required this.receipt
   });
 
   factory Medicine.fromJson(Map<String, dynamic> json) {
@@ -30,6 +34,8 @@ class Medicine {
       registrationNumber: json['registrationNumber'],
       manufacturer: json['manufacturer'],
       packagingType: json['packagingType'],
+      supplier: json['supplier'],
+      receipt: json['receipt']
     );
   }
 
@@ -42,6 +48,8 @@ class Medicine {
       'registrationNumber': registrationNumber,
       'manufacturer': manufacturer,
       'packagingType': packagingType,
+      'supplier': supplier,
+      'receipt': receipt
     };
   }
 

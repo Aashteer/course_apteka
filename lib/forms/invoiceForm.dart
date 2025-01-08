@@ -14,6 +14,7 @@ class _InvoiceFormState extends State<InvoiceForm> {
   final TextEditingController _medicineListController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _surnameController = TextEditingController();
+  final TextEditingController _customerIDController = TextEditingController();
 
   void _saveInvoice() {
     // Создание объекта Invoice
@@ -23,6 +24,7 @@ class _InvoiceFormState extends State<InvoiceForm> {
       medicineList: _medicineListController.text.split(','), // Разделение строки на список
       price: double.tryParse(_priceController.text) ?? 0.0, // Преобразование строки в double
       surname: _surnameController.text,
+      customerID: _customerIDController.text
     );
     Invoice.saveToJson(invoice);
   }
@@ -53,6 +55,10 @@ class _InvoiceFormState extends State<InvoiceForm> {
           TextField(
             controller: _surnameController,
             decoration: InputDecoration(labelText: 'Фамилия'),
+          ),
+          TextField(
+            controller: _customerIDController,
+            decoration: InputDecoration(labelText: 'Customer ID'),
           ),
           ElevatedButton(
             onPressed: _saveInvoice,

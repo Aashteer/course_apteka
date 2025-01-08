@@ -16,6 +16,8 @@ class _MedicineFormState extends State<MedicineForm> {
   final TextEditingController _registrationNumberController = TextEditingController();
   final TextEditingController _manufacturerController = TextEditingController();
   final TextEditingController _packagingTypeController = TextEditingController();
+  final TextEditingController _supplierController = TextEditingController();
+  final TextEditingController _receiptController = TextEditingController();
 
   void _saveMedicine() {
     // Создание объекта Medicine
@@ -27,6 +29,8 @@ class _MedicineFormState extends State<MedicineForm> {
       registrationNumber: _registrationNumberController.text,
       manufacturer: _manufacturerController.text,
       packagingType: _packagingTypeController.text,
+      supplier: _supplierController.text,
+      receipt: _receiptController.text
     );
     Medicine.saveToJson(medicine);
     
@@ -65,6 +69,14 @@ class _MedicineFormState extends State<MedicineForm> {
           TextField(
             controller: _packagingTypeController,
             decoration: InputDecoration(labelText: 'Тип упаковки'),
+          ),
+          TextField(
+            controller: _supplierController,
+            decoration: InputDecoration(labelText: 'Поставщик'),
+          ),
+          TextField(
+            controller: _receiptController,
+            decoration: InputDecoration(labelText: 'Приходная накладная'),
           ),
           ElevatedButton(
             onPressed: _saveMedicine,

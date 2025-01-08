@@ -8,6 +8,7 @@ class Invoice {
   final List<String> medicineList;
   final double price;
   final String surname;
+  final String customerID;
 
   Invoice({
     required this.name,
@@ -15,6 +16,7 @@ class Invoice {
     required this.medicineList,
     required this.price,
     required this.surname,
+    required this.customerID
   });
 
   factory Invoice.fromJson(Map<String, dynamic> json) {
@@ -24,6 +26,7 @@ class Invoice {
       medicineList: List<String>.from(json['medicineList']),
       price: json['price'].toDouble(),
       surname: json['surname'],
+      customerID: json['customerID']
     );
   }
 
@@ -34,6 +37,7 @@ class Invoice {
       'medicineList': medicineList,
       'price': price,
       'surname': surname,
+      'customerID': customerID
     };
   }
 
@@ -68,5 +72,12 @@ class Invoice {
     final String jsonString = json.encode(invoices.map((c) => c.toJson()).toList());
     final file = File(filePath);
     await file.writeAsString(jsonString);
+  }
+  static Future<Invoice> findByValue(String ID) async {
+    List<Invoice> invoices = await parseInvoices("assets/supplier.json");
+    return invoices.firstWhere(
+      (invoice) => invoice.customerID == ID,
+      
+    );
   }
 }

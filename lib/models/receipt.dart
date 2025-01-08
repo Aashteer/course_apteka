@@ -61,4 +61,12 @@ class Receipt {
     final file = File(filePath);
     await file.writeAsString(jsonString);
   }
+
+  static Future<Receipt> findByValue(String number) async {
+    List<Receipt> receipts = await parseReceipts("assets/receipt.json");
+    return receipts.firstWhere(
+      (receipt) => receipt.number == number,
+      
+    );
+  }
 }

@@ -7,12 +7,14 @@ class Customer {
   final String address;
   final String phoneNumber;
   final String inn;
+  final String ID;
 
   Customer({
     required this.name, 
     required this.address, 
     required this.phoneNumber, 
     required this.inn,
+    required this.ID
   });
 
   factory Customer.fromJson(Map<String, dynamic> json) {
@@ -21,6 +23,7 @@ class Customer {
       address: json['address'],
       phoneNumber: json['phoneNumber'],
       inn: json['inn'],
+      ID: json['ID']
     );
   }
 
@@ -30,6 +33,7 @@ class Customer {
       'address': address,
       'phoneNumber': phoneNumber,
       'inn': inn,
+      'ID': ID
     };
   }
 
